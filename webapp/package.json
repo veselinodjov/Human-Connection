@@ -44,7 +44,8 @@
     ],
     "moduleNameMapper": {
       "^@/(.*)$": "<rootDir>/src/$1",
-      "^~/(.*)$": "<rootDir>/$1"
+      "^~/(.*)$": "<rootDir>/$1",
+      "\\.(css|less)$": "identity-obj-proxy"
     },
     "testMatch": [
       "**/?(*.)+(spec|test).js?(x)"
@@ -55,12 +56,13 @@
     "@nuxtjs/apollo": "^4.0.0-rc13.1",
     "@nuxtjs/axios": "~5.6.0",
     "@nuxtjs/dotenv": "~1.4.1",
+    "@nuxtjs/pwa": "^3.0.0-beta.19",
     "@nuxtjs/sentry": "^3.0.0",
     "@nuxtjs/style-resources": "~1.0.0",
     "accounting": "~0.4.1",
     "apollo-cache-inmemory": "~1.6.3",
     "apollo-client": "~2.6.4",
-    "cookie-universal-nuxt": "~2.0.17",
+    "cookie-universal-nuxt": "~2.0.18",
     "cropperjs": "^1.5.5",
     "cross-env": "~6.0.0",
     "date-fns": "2.2.1",
@@ -78,6 +80,7 @@
     "tippy.js": "^4.3.5",
     "tiptap": "~1.25.0",
     "tiptap-extensions": "~1.27.0",
+    "trunc-html": "^1.1.2",
     "v-tooltip": "~2.0.2",
     "vue-count-to": "~1.0.13",
     "vue-infinite-scroll": "^2.0.2",
@@ -88,9 +91,9 @@
     "zxcvbn": "^4.4.2"
   },
   "devDependencies": {
-    "@babel/core": "~7.6.0",
+    "@babel/core": "~7.6.2",
     "@babel/plugin-syntax-dynamic-import": "^7.2.0",
-    "@babel/preset-env": "~7.6.0",
+    "@babel/preset-env": "~7.6.2",
     "@storybook/addon-a11y": "^5.2.1",
     "@storybook/addon-actions": "^5.2.1",
     "@storybook/vue": "~5.2.1",
@@ -98,6 +101,7 @@
     "@vue/eslint-config-prettier": "~5.0.0",
     "@vue/server-test-utils": "~1.0.0-beta.29",
     "@vue/test-utils": "~1.0.0-beta.29",
+    "async-validator": "^3.1.0",
     "babel-core": "~7.0.0-bridge.0",
     "babel-eslint": "~10.0.3",
     "babel-jest": "~24.9.0",
@@ -118,6 +122,7 @@
     "eslint-plugin-vue": "~5.2.3",
     "flush-promises": "^1.0.2",
     "fuse.js": "^3.4.5",
+    "identity-obj-proxy": "^3.0.0",
     "jest": "~24.9.0",
     "mutation-observer": "^1.0.3",
     "node-sass": "~4.12.0",

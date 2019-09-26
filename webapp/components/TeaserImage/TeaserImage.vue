@@ -33,7 +33,6 @@
 import vueDropzone from 'nuxt-dropzone'
 import Cropper from 'cropperjs'
 import 'cropperjs/dist/cropper.css'
-
 export default {
   components: {
     vueDropzone,
@@ -62,11 +61,11 @@ export default {
   methods: {
     template() {
       return `<div class="dz-preview dz-file-preview">
-                <div class="dz-image">
-                  <div data-dz-thumbnail-bg></div>
-                </div>
+              <div class="dz-image">
+                <div data-dz-thumbnail-bg></div>
               </div>
-      `
+            </div>
+    `
     },
     verror(file, message) {
       this.error = true
@@ -95,42 +94,33 @@ export default {
       }
     },
     transformImage(file) {
-      let myDropZone = this
-
+      let thumbnailElement, editor, confirm
       // Create the image editor overlay
-      let editor = document.createElement('div')
-      editor.style.position = 'fixed'
-      editor.style.left = 0
-      editor.style.right = 0
-      editor.style.top = 0
-      editor.style.bottom = 0
-      editor.style.zIndex = 9999
-      editor.style.backgroundColor = '#000'
-
+      editor = document.createElement('div')
+      thumbnailElement = document.querySelectorAll('.dz-image')[0]
+      // dataDzThumbnail = document.querySelectorAll('[data-dz-thumbnail-bg]')[0]
+      // thumbnailPreview = document.querySelectorAll('.thumbnail-preview')[0]
+      editor.classList.add('crop-overlay')
+      // elementToReplace = thumbnailPreview || dataDzThumbnail
+      thumbnailElement.appendChild(editor)
       // Create the confirm button
-      let confirm = document.createElement('button')
-      confirm.style.position = 'absolute'
-      confirm.style.left = '10px'
-      confirm.style.top = '10px'
-      confirm.style.zIndex = 9999
+      confirm = document.createElement('button')
+      confirm.classList.add('crop-confirm')
       confirm.textContent = 'Confirm'
-      confirm.addEventListener('click', function() {
+      confirm.addEventListener('click', () => {
         // Get the canvas with image data from Cropper.js
         let canvas = cropper.getCroppedCanvas()
-        myDropZone.thumbnail(file, canvas.toDataURL())
-
+        this.thumbnail(file, canvas.toDataURL())
         // Remove the editor from view
         editor.parentNode.removeChild(editor)
       })
       editor.appendChild(confirm)
-
       // Load the image
       let image = new Image()
       image.src = URL.createObjectURL(file)
       editor.appendChild(image)
       // Append the editor to the page
-      document.body.appendChild(editor)
-
+      // document.body.appendChild(editor)
       // Create Cropper.js and pass image
       let cropper = new Cropper(image, {})
     },
@@ -143,31 +133,26 @@ export default {
   min-height: 300px;
   background-color: $background-color-softest;
 }
-
 @media only screen and (max-width: 960px) {
   #postdropzone {
     min-height: 200px;
   }
 }
-
 .hc-attachments-upload-area-post {
   position: relative;
   display: flex;
   justify-content: center;
   cursor: pointer;
 }
-
 .hc-attachments-upload-area-update-post img {
   object-fit: cover;
   object-position: center;
   display: block;
   width: 100%;
 }
-
 .hc-attachments-upload-area-update-post:hover {
   opacity: 0.7;
 }
-
 .hc-drag-marker-post {
   position: absolute;
   width: 122px;
@@ -180,10 +165,8 @@ export default {
   transition: all 0.2s ease-out;
   font-size: 60px;
   margin: 80px 5px;
-
   background-color: $background-color-softest;
   opacity: 0.65;
-
   &:before {
     position: absolute;
     content: '';
@@ -195,7 +178,6 @@ export default {
     border: 20px solid $text-color-base;
     visibility: hidden;
   }
-
   &:after {
     position: absolute;
     content: '';
@@ -206,21 +188,30 @@ export default {
     border-radius: 100%;
     border: $border-size-base dashed $text-color-base;
   }
-
   .hc-attachments-upload-area-post:hover & {
     opacity: 1;
   }
 }
-
 .hc-drag-marker-update-post {
   opacity: 0;
 }
-
 .contribution-form-footer {
   border-top: $border-size-base solid $border-color-softest;
 }
-
 .contribution-image {
   max-height: 300px;
+}
+.crop-overlay {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  z-index: 9999;
+  background-color: #000;
+}
+.crop-confirm {
+  position: absolute;
+  left: 10px;
+  top: 10px;
+  z-index: 9999;
 }
 </style>
