@@ -356,6 +356,9 @@
     "languageSelectLabel": "Język",
     "categories": {
       "infoSelectedNoOfMaxCategories": "{chosen} z {max} wybrane kategorie"
+    },
+    "teaserImage": {
+      "cropperConfirm": "Potwierdzać"
     }
   }
 }
