@@ -189,11 +189,15 @@ export default {
         margin-top: $space-small;
         position: relative;
       }
+
+      .ProseMirror {
+        min-height: 0px;
+      }
     }
 
     .ds-card-image {
       img {
-        max-height: 300px;
+        height: 300px;
         object-fit: cover;
         object-position: center;
       }
