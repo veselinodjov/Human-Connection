@@ -1,76 +1,78 @@
 <template>
-  <transition name="fade" appear>
-    <ds-card
-      v-if="post && ready"
-      :image="post.image | proxyApiUrl"
-      :class="{ 'post-card': true, 'disabled-content': post.disabled }"
-    >
-      <ds-space margin-bottom="small" />
-      <hc-user :user="post.author" :date-time="post.createdAt" />
-      <!-- Content Menu (can open Modals) -->
-      <client-only>
-        <content-menu
-          placement="bottom-end"
-          resource-type="contribution"
-          :resource="post"
-          :modalsData="menuModalsData"
-          :is-owner="isAuthor(post.author ? post.author.id : null)"
-        />
-      </client-only>
-      <ds-space margin-bottom="small" />
-      <ds-heading tag="h3" no-margin class="hyphenate-text">{{ post.title }}</ds-heading>
-      <ds-space margin-bottom="small" />
-      <content-viewer class="content hyphenate-text" :content="post.content" />
-      <!-- eslint-enable vue/no-v-html -->
-      <ds-space margin="xx-large" />
-      <!-- Categories -->
-      <div class="categories">
-        <ds-space margin="xx-small" />
-        <hc-category
-          v-for="category in post.categories"
-          :key="category.id"
-          :icon="category.icon"
-          :name="$t(`contribution.category.name.${category.slug}`)"
-        />
-      </div>
-      <ds-space margin-bottom="small" />
-      <!-- Tags -->
-      <div v-if="post.tags && post.tags.length" class="tags">
-        <ds-space margin="xx-small" />
-        <hc-hashtag v-for="tag in post.tags" :key="tag.id" :id="tag.id" />
-      </div>
-      <ds-space margin-top="x-large">
-        <ds-flex :gutter="{ lg: 'small' }">
-          <ds-flex-item
-            :width="{ lg: '75%', md: '75%', sm: '75%' }"
-            class="emotions-buttons-mobile"
-          >
-            <hc-emotions :post="post" />
-          </ds-flex-item>
-          <ds-flex-item :width="{ lg: '10%', md: '3%', sm: '3%' }" />
-          <!-- Shout Button -->
-          <ds-flex-item
-            :width="{ lg: '15%', md: '22%', sm: '22%', base: '100%' }"
-            class="shout-button"
-          >
-            <hc-shout-button
-              v-if="post.author"
-              :disabled="isAuthor(post.author.id)"
-              :count="post.shoutedCount"
-              :is-shouted="post.shoutedByCurrentUser"
-              :post-id="post.id"
-            />
-          </ds-flex-item>
-        </ds-flex>
-      </ds-space>
-      <!-- Comments -->
-      <ds-section slot="footer">
-        <hc-comment-list :post="post" />
-        <ds-space margin-bottom="large" />
-        <hc-comment-form :post="post" @createComment="createComment" />
-      </ds-section>
-    </ds-card>
-  </transition>
+  <ds-container width="medium">
+    <transition name="fade" appear>
+      <ds-card
+        v-if="post && ready"
+        :image="post.image | proxyApiUrl"
+        :class="{ 'post-card': true, 'disabled-content': post.disabled }"
+      >
+        <ds-space margin-bottom="small" />
+        <hc-user :user="post.author" :date-time="post.createdAt" />
+        <!-- Content Menu (can open Modals) -->
+        <client-only>
+          <content-menu
+            placement="bottom-end"
+            resource-type="contribution"
+            :resource="post"
+            :modalsData="menuModalsData"
+            :is-owner="isAuthor(post.author ? post.author.id : null)"
+          />
+        </client-only>
+        <ds-space margin-bottom="small" />
+        <ds-heading tag="h3" no-margin class="hyphenate-text">{{ post.title }}</ds-heading>
+        <ds-space margin-bottom="small" />
+        <content-viewer class="content hyphenate-text" :content="post.content" />
+        <!-- eslint-enable vue/no-v-html -->
+        <ds-space margin="xx-large" />
+        <!-- Categories -->
+        <div class="categories">
+          <ds-space margin="xx-small" />
+          <hc-category
+            v-for="category in post.categories"
+            :key="category.id"
+            :icon="category.icon"
+            :name="$t(`contribution.category.name.${category.slug}`)"
+          />
+        </div>
+        <ds-space margin-bottom="small" />
+        <!-- Tags -->
+        <div v-if="post.tags && post.tags.length" class="tags">
+          <ds-space margin="xx-small" />
+          <hc-hashtag v-for="tag in post.tags" :key="tag.id" :id="tag.id" />
+        </div>
+        <ds-space margin-top="x-large">
+          <ds-flex :gutter="{ lg: 'small' }">
+            <ds-flex-item
+              :width="{ lg: '75%', md: '75%', sm: '75%' }"
+              class="emotions-buttons-mobile"
+            >
+              <hc-emotions :post="post" />
+            </ds-flex-item>
+            <ds-flex-item :width="{ lg: '10%', md: '3%', sm: '3%' }" />
+            <!-- Shout Button -->
+            <ds-flex-item
+              :width="{ lg: '15%', md: '22%', sm: '22%', base: '100%' }"
+              class="shout-button"
+            >
+              <hc-shout-button
+                v-if="post.author"
+                :disabled="isAuthor(post.author.id)"
+                :count="post.shoutedCount"
+                :is-shouted="post.shoutedByCurrentUser"
+                :post-id="post.id"
+              />
+            </ds-flex-item>
+          </ds-flex>
+        </ds-space>
+        <!-- Comments -->
+        <ds-section slot="footer">
+          <hc-comment-list :post="post" />
+          <ds-space margin-bottom="large" />
+          <hc-comment-form :post="post" @createComment="createComment" />
+        </ds-section>
+      </ds-card>
+    </transition>
+  </ds-container>
 </template>
 
 <script>
