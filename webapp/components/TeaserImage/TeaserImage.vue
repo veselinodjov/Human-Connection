@@ -190,14 +190,9 @@ export default {
 .contribution-form-footer {
   border-top: $border-size-base solid $border-color-softest;
 }
-.contribution-image {
-  max-height: 710px;
-}
 .crop-overlay {
-  max-height: 710px;
   position: relative;
   width: 100%;
-  // height: 100%;
   z-index: 9999;
   background-color: #000;
 }
@@ -206,8 +201,5 @@ export default {
   left: 10px;
   top: 10px;
   z-index: 9999;
-}
-.thumbnail-preview {
-  max-height: 710px;
 }
 </style>
