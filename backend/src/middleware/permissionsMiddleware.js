@@ -170,9 +170,11 @@ const permissions = shield(
       block: isAuthenticated,
       unblock: isAuthenticated,
       markAsRead: isAuthenticated,
+      AddEmailAddress: isAuthenticated,
+      VerifyEmailAddress: isAuthenticated,
     },
     User: {
-      email: isMyOwn,
+      email: or(isMyOwn, isAdmin),
     },
   },
   {
