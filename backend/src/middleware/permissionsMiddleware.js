@@ -111,6 +111,12 @@ const noEmailFilter = rule({
   return !('email' in args)
 })
 
+const pinnedPost = rule({
+  cache: 'no_cache',
+})(async (_, args) => {
+  return 'pinned' in args
+})
+
 // Permissions
 const permissions = shield(
   {
@@ -141,7 +147,7 @@ const permissions = shield(
       SignupVerification: allow,
       CreateInvitationCode: and(isAuthenticated, or(not(invitationLimitReached), isAdmin)),
       UpdateUser: onlyYourself,
-      CreatePost: isAuthenticated,
+      CreatePost: or(and(isAuthenticated, not(pinnedPost)), isAdmin),
       UpdatePost: isAuthor,
       DeletePost: isAuthor,
       report: isAuthenticated,
